@@ -405,6 +405,8 @@ class ClientHandler(StreamRequestHandler):
         """
 
         raw = self._msgqueue.get()
+        if type(raw) == NMEAMessage:
+            raw = raw.serialize()
         if raw is not None:
             self.wfile.write(raw)
             self.wfile.flush()
